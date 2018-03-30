@@ -19,9 +19,11 @@ public class AreaServer extends Thread{
     private static final Sensor[][] SENSORS = {{new Sensor("localhost",7000, "A-weg", 0),new Sensor("localhost",7000,"A-weg", 1)},
             {new Sensor("localhost",7001,"B-weg", 0),new Sensor("localhost",7001,"B-weg", 1)},
             {new Sensor("localhost",7002,"C-weg", 0)}};
-    AreaServer(int port, int num){
+    private int[] closeAreas;
+    AreaServer(int port, int num, int[] close){
         this.port=port;
         this.index = num;
+        this.closeAreas=close;
         this.sensors = SENSORS[index];
     }
     public SensorPackage getFreeSpot(){
@@ -31,7 +33,11 @@ public class AreaServer extends Thread{
                 return sensors[i].getPack();
             }
         }
-        return new SensorPackage();
+        //NO FREE SPOT IN AREA, find closest peer and request
+        for (int i = 0; i < closeAreas.length; i++) {
+
+        }
+        return new SensorPackage("NOSPACEAVAILABLEANYWHERE",0,true);
     }
     public void getFreeSpot(String streetName){
 
