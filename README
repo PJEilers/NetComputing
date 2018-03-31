@@ -1,0 +1,19 @@
+4 Components:
+
+1) Sensor to server communication.
+Many to one communication, with server having Message Queues.
+2) Server to server communication.
+Sending area based information to other servers in a peer to peer network.
+3) Client to server communication.
+Sending request to the server with a given paramenter. Restfull.
+4) Client login and storage.
+Client logs into server, needs database to store user information.
+
+1) Sensor sends (randomly, since data is artificial) UDP packet to the server with his change in status to the server.
+Server stores these messages in a queue and then processes them when avaiable. Many Sensors can send packets to a given server.
+
+2) Server has a map of parking spaces, available or not, they will sent this to other server to keep them up to date, like in a peer to peer network. This will result in all servers having the data of all the areas, so when the client connects to the closest server it doesn't need to request it at that time.
+
+3) User will use a http based client which will sent request to the server depending on a given paramenter(their destination or other arguments). The communication will be done using Restfull, which sents http requests to the server.
+
+4) Extra when can have users login to the client with a username and password to give them extra options and information only for them. This requires a database to store the users and their password. Client connects to server, which will check his username and password with the one on the server, if all correct user is accepted. 
